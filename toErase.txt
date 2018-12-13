@@ -1,0 +1,35 @@
+1. Remove the files that don't matter for our purposes
+2. Integrate the needed files into WowWee chip, 
+3. Be happy af
+
+Activities that definitely don't matter:
+AxixTickLabels
+AnalyzerGraphic
+Analyzer Views
+ColorMapArray
+FPScounter
+SpectrogramPlot
+SineGenerator
+GridLabel
+ScreenPhysicalMapping
+
+ACtivities that might matter:
+AnalyzeOneBufferForWz
+AnalyzerActivity
+AnalyzerParameters
+AnalyzerUtil
+besselCal (Third party calc library)
+CalibrationLoad
+InfoRecActivity
+MyPreferences
+RangeViewDialogC
+RecorderMOnitor
+SbNumFormat
+SelectorText
+SpectrogramBMP
+SpectrumPlot
+
+
+Definitely matters:
+SamplingLoop
+STFT
