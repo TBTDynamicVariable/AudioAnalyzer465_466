@@ -60,18 +60,18 @@ import android.widget.Toast;
  * @author suhler@google.com (Stephen Uhler)
  */
 
-public class AnalyzerActivity extends Activity
+public class AnalyzerActivity extends Activity          // AnalyzerActivity is directly linked to AnalyzerGraphic.Readyghbnnn
     implements OnLongClickListener, OnClickListener,
                OnItemClickListener, AnalyzerGraphic.Ready
 {
     private static final String TAG="AnalyzerActivity:";
 
-    AnalyzerViews analyzerViews;
+    AnalyzerViews analyzerViews;                        // Also direct depencency on AnalyzerViews
     SamplingLoop samplingThread = null;
     private RangeViewDialogC rangeViewDialogC;
     private GestureDetectorCompat mDetector;
 
-    private AnalyzerParameters analyzerParam = null;
+    private AnalyzerParameters analyzerParam = null;    // Same with params
 
     double dtRMS = 0;
     double dtRMSFromFT = 0;
@@ -113,6 +113,8 @@ public class AnalyzerActivity extends Activity
             ((TextView) view).setFreezesText(true);
           }
         }, "select");
+        // P sure this is what actually turns the objects into buttons? Which is, like super cool?
+
 
         rangeViewDialogC = new RangeViewDialogC(this, analyzerViews.graphView);
 
