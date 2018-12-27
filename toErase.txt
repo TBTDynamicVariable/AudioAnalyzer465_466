@@ -3,6 +3,10 @@
 3. Be happy af
 
 Activities that definitely don't matter:
+AnalyzeOneBufferForWz
+
+
+ACtivities that might matter:
 AxixTickLabels
 AnalyzerGraphic
 Analyzer Views
@@ -12,9 +16,6 @@ SpectrogramPlot
 SineGenerator
 GridLabel
 ScreenPhysicalMapping
-
-ACtivities that might matter:
-AnalyzeOneBufferForWz
 AnalyzerActivity
 AnalyzerParameters
 AnalyzerUtil
@@ -33,3 +34,103 @@ SpectrumPlot
 Definitely matters:
 SamplingLoop
 STFT
+
+
+
+________________________________________________________________________________________________
+              AnalyzeOneBufferForWz
+This is actually just empty, assumedly not implemented thing, can safely delete it with no problems
+
+
+
+
+________________________________________________________________________________________________
+              AnalyzerActivity
+  Direct depencencies:
+  - AnalyzerViews
+  - AnalyzerParameters
+  - AnalyzerGraphic
+  - Calibration load(225, )
+
+What matters: How we save files, how we call fft measure, analyze, and save - Very small part of this activity
+
+More detailed run through:
+Lines 0-122 - Initial and OnCreate function:
+Gets memory allocation for phone, relays that info to the user. Creates the view - and sets them using the AnalyzerParameters activity.
+
+Lines 130-144 - OnResume:
+Resumes operation, really. overwrites default on resume funcion, Starts sampling and loads the saved preferences gotted from initial run of app.
+
+Lines 146-154 - onPause:
+Overwrites standard, stops sampling, doesn't close window
+
+Through Line 195, we have android app functionality stuff. What happens when we open the program, close it, ect. Not exciting
+
+Line 196- 214 - selectFile: (Do not know where this function is ever called)
+Program looks at the users default filemanagement system. Error checks with toast. Has two modes, requesting audio file and calibration file
+
+Lines 225-238 - fillFftCalibration
+Gathers the data used for Fourier transform, uses both an AnalyzerParameter object and a CalibrationLoad one. This and the next function make heavy use of Log.(method) - need to do some reading up on log
+
+Lines 257 - 281 - Menu stuff:
+Almost defnitely some generated code through AS, Goes through various menu funcitonality, but this is code we can remove if we find settings that work best for our purposes. Simply hardcode the best settings for our robot.
+
+
+Lines 275 - 358 - Onlcick for AdapterView: TODO:
+This is a menu series for selection on the way the fft is taken and calculated - This code is a good deal more complicated, and susing out what we will be using will be a little more complicated that the stuff above, however, it can be hardcoded for us
+
+Lines 363-390 - LoadPrefForView:
+Takes the menu options the user used before and implement those when a new instance of the program is opened. For us, we need to figure out how to remove this code, not adapt it. We can hardcode the preferences we want in order to best record OUR audio. 
+
+
+Lines 392-463 - LoadPreferences:
+Much like above, LoadPrefForView, utilizes AnalyzerParameters, View, and Graphics. Graph view, spectrum display, all of the things I don't particularly care about. All visual part of the app, which I think we want to avoice, simply getting the utility of the app. 
+
+
+Lines 465-476 - stickToMEasureMode and Cancel Measure:
+These both make it so the probram has checks at certain points that require recording/measuring and displaying that data. 
+
+Lines 477-487 - IsInGraphV and shopPopUp:
+Another set of visual exclusive functions that we don't care too much about. Both functions make exclusive use of analyzerViews object.
+
+Lines 494 - 567  -  AnalyzerGestureListener:
+Detects certain phone sensors that depend on motion? I think? For the app, we are override an onDown motion event, so that the app does what we want it to, rather than what is typical for this happening. For instance, double tapping and holding down a button on screen have typical implementation, and the apps creator wanted to use a different functionality. 
+
+Lines 569 - 619 (- 677, really) - Various functions relating to user input:
+These all rever to user selection interactions with the audio analyzer app. For us, I think it best do make the user functionality.... A timed thing, or a button push (perhaps?) and then record the audio and analyze it. So this us not particularly important.
+
+
+Lines 679 - 684 - OnLongClick:
+Press and hold copies string of obj
+
+Lines 688 - 693 - onClick:
+overrides typical click function to also disregard the graph being displayed by analyzerViews
+
+Lines 695 - 735 - Setting up the graph to display sonogram:
+Stated above, gets graph ready for displaying the visualization of the audio being recorded. In the beginning it also sets up variables in order to save the data being recorded on the phone. @736 Audio sampling begins.  
+
+
+Lines 741 - 790 - Recording audio permissions: 
+In order to access parts of the android device NOT directly coded into the app, the android device must first ask user for the permissions. If the user gives them, we gucci, otherwise the app cannot perform its given directions. This part checks to make sure that the user HAS given permission. If they have not, the app tells them so and is like. "hey, please do the thing". Initial check @751 asks for audio permissions. @781, the same is done for storing information
+
+Lines 794 - 829 - Determins results, does a thing with them:
+What does it actually do to them? Well, it writes something to the log, and.... i Have no idea what that does yet. So, we'll figure it out eventually
+
+
+Lines 837 - 895 - Changes display mode of the graph:
+The graphs show an updated spectrogram, frequency scaling, or db plot. The views change dependin on that, as layed out in analyzerViews.graphView.(funciton). This function doesn't go into how the data is recorded, or how it is sent to the graph.
+
+Lines 895 - end - Visit and the like:
+These functions are that show the sub parts of the group - So, visiting a group, executing the command, I THINK thats how the Logs are used? Honestly, this part is a little beyond me rn. 
+
+
+
+________________________________________________________________________________________________
+            AnalyzerGraphic
+This class is all about the graph. 
+
+
+
+
+
+
