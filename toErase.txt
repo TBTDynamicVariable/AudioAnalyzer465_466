@@ -4,11 +4,11 @@
 
 Activities that definitely don't matter:
 AnalyzeOneBufferForWz
+AnalyzerGraphic
 
 
 ACtivities that might matter:
 AxixTickLabels
-AnalyzerGraphic
 Analyzer Views
 ColorMapArray
 FPScounter
@@ -16,8 +16,6 @@ SpectrogramPlot
 SineGenerator
 GridLabel
 ScreenPhysicalMapping
-AnalyzerActivity
-AnalyzerParameters
 AnalyzerUtil
 besselCal (Third party calc library)
 CalibrationLoad
@@ -29,11 +27,14 @@ SbNumFormat
 SelectorText
 SpectrogramBMP
 SpectrumPlot
+SamplingLoop
+STFT
+
 
 
 Definitely matters:
-SamplingLoop
-STFT
+AnalyzerParameters
+AnalyzerActivity
 
 
 
@@ -128,7 +129,32 @@ These functions are that show the sub parts of the group - So, visiting a group,
 ________________________________________________________________________________________________
             AnalyzerGraphic
 This class is all about the graph. 
+Dependancies:
+SpectrumPlot
+SpectrogramPlot
 
+This activity interacts with the two dependencies, Spectro_Plot and Spectru_Plot. They might be called from places outside of this, but both plots use this to get the information appropriate for those plots, and place that into the graphic window. Merely going to be removed, I assume. Doesn't seem like it will provide too much functionality for us, as we don't want to keep the graphic interface of that part of the app, just the computational and memory accessing functionality. Going through it is a pretty easy trace, the functions are not detailed.
+
+________________________________________________________________________________________________
+            AnalyzerParameters
+Class dependencies:
+None - This code is used by other 
+
+Lays out some of the more important functionality of the app - Sets up a lot of fourier variables and maths, gets audio source form computer
+
+Lines 26-41:
+Declaring variables - Asssuming this is used as analyzerParameter Objects in other places, and that is taken to obtain what operation is being performed by the program. 
+
+Lines 49 - end - getAudioSourceNameFromIdPrepare:
+You pass this a resource, it gets the string value from it, and then uses that string value as the audio source - and that is used when recording starts (BIG ASSUMPTION, I just don't know how else that will be used.)
+
+
+________________________________________________________________________________________________
+            AnalyzerUtil
+
+
+
+________________________________________________________________________________________________
 
 
 
