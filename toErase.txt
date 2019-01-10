@@ -2,19 +2,19 @@
 2. Integrate the needed files into WowWee chip, 
 3. Be happy af
 
-Activities that definitely don't matter:
+Activities that definitely don't matter*:
 AnalyzeOneBufferForWz
 AnalyzerGraphic
 AxixTickLabels
 ColorMapArray
 FPSCounter
+GridLabel
 
 
 
 ACtivities that might matter:
 SpectrogramPlot
 SineGenerator
-GridLabel
 ScreenPhysicalMapping
 InfoRecActivity
 MyPreferences
@@ -211,14 +211,17 @@ This is a java file that aims to create an FPS counter. Not only is this aesteti
 
 
 ________________________________________________________________________________________________
+            GridLabel
+
+
+Lines 0-138
+Starts off talking about the grid on which the waves are plotted. Different markers and value intervals are made depending on user selected setting of DB, or whatever. 
+Does not perform any proper computation or saving function, just lays out the grid for UI purposes. 
 
 
 
-
-
-
-
-
+________________________________________________________________________________________________
+            InfoRecActivity
 
 
 
