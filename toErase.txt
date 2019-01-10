@@ -5,20 +5,17 @@
 Activities that definitely don't matter:
 AnalyzeOneBufferForWz
 AnalyzerGraphic
+AxixTickLabels
+ColorMapArray
+FPSCounter
+
 
 
 ACtivities that might matter:
-AxixTickLabels
-Analyzer Views
-ColorMapArray
-FPScounter
 SpectrogramPlot
 SineGenerator
 GridLabel
 ScreenPhysicalMapping
-AnalyzerUtil
-besselCal (Third party calc library)
-CalibrationLoad
 InfoRecActivity
 MyPreferences
 RangeViewDialogC
@@ -32,9 +29,15 @@ STFT
 
 
 
+
+
 Definitely matters:
 AnalyzerParameters
 AnalyzerActivity
+AnalyzerUtil
+AnalyzerViews(Used by Sampling loop which matters, but the rest of it is aestetic nonsense. )
+besselCal
+CalibrationLoad
 
 
 
@@ -151,10 +154,85 @@ You pass this a resource, it gets the string value from it, and then uses that s
 
 ________________________________________________________________________________________________
             AnalyzerUtil
+ - Lost a bunch of stuff. Really not thrilled about it. BUtt. whatever. I have a few hours. Lets do. 
+
+This is an important file. It does the pitch frequency conversion for the program, but some of that is purely aestetic. Doubt we'll be checking pitch against itself, rather the idea is to check frequencies with some level of tolerance. 
+
+Additionally, validate audio rates for the recording device. That and getting the audio source Id. Aroudn line 175, the functions AnalyzerUtil and GetAllAudioSource are part of the audio source checking and confirmation. 
+
+Lines 260-364
+A combination of binary search and the is sorted function perform important data analysis functions, goes to the important pile. 
+________________________________________________________________________________________________
+            AnalyzerViews
+Used by: Sampling Loop
+Uses:
+- so the default app has different modes you can select, depending on how you want the data displayed. This is the java file that manages most of that, and it's relevent to the project. 
+
+Lines 165-168 Might be useful to find where the function is called, as well as the following toast(error check part). We don't want to tell the end user that the file has been saved, but we do want to do it during error checking. And the function itself tells us where the path is saved, so we want to find where the string is found that is passed to the function. 
+
+The rest of these functions are mostly aestetic and do a lot of android specific manipulation of text boxes, pictures, and the like, buttons, popup menus, whatever. We don't care about it, 
+
+IMPORTNT: Sampling loop, which is a vital chunk of code for us, makes use of the notify save and toast functions from AnalyzerViews
+
+________________________________________________________________________________________________
+              AxisTickLabels
+ Used by:
+ Uses:
+ 
+ The graphs in android studio don't automatically have tick labels, so this chunk of code makes tick labels on the graph. We do not need. 
 
 
 
 ________________________________________________________________________________________________
+            besselCaL
+The only damn file that makes any kind of sense. who capitalizes EVER letter? Real silly. Anyway. This stays.
+Includes a lot of the math that does the audio analysis. Works with "Chebyshev" Polynomials. Long story short, used by the app for analyzing recorded data. If we end up using tensor flow, this won't matter. 
+
+
+
+
+________________________________________________________________________________________________
+            Calibrationload
+Loads the calibration file. If that fily doesn't exist, we make a new calibration file. What do we use that file for, you ask? I haven't the slightest idea. Though a lot of information is pulled from it. 
+
+Keep file. 
+
+________________________________________________________________________________________________
+            ColorMapArray
+Literally a list of hex colors. Actually kind of silly. Gave me a good chuckle. 
+
+
+
+
+________________________________________________________________________________________________
+            FPSCounter
+This is a java file that aims to create an FPS counter. Not only is this aestetic only, it isn't actually implemented anywhere in the program. P sure we could just delete it and never have a problem. 
+
+
+
+________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
