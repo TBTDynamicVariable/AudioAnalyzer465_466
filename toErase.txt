@@ -9,6 +9,7 @@ AxixTickLabels
 ColorMapArray
 FPSCounter
 GridLabel
+RangeViewDialogC
 
 
 
@@ -16,10 +17,6 @@ ACtivities that might matter:
 SpectrogramPlot
 SineGenerator
 ScreenPhysicalMapping
-InfoRecActivity
-MyPreferences
-RangeViewDialogC
-RecorderMOnitor
 SbNumFormat
 SelectorText
 SpectrogramBMP
@@ -38,6 +35,10 @@ AnalyzerUtil
 AnalyzerViews(Used by Sampling loop which matters, but the rest of it is aestetic nonsense. )
 besselCal
 CalibrationLoad
+InfoRecActivity
+MyPreferences
+RecorderMOnitor
+
 
 
 
@@ -223,21 +224,63 @@ Does not perform any proper computation or saving function, just lays out the gr
 ________________________________________________________________________________________________
             InfoRecActivity
 
+This tests the audio source, and reads data from it. Very importent. 
+
+Lines 41-51 - Two of these lines are strictly about the interface, with the set content and text view. Also the movement function. But setting up  a new analyzer util is important.
 
 
+56-100 - ui stuff, setting a back button and a menu, then back button utility override
+
+Lines 102-112 - On resume, every class tends too have this. Text result we will change to inner storage
+
+115 - No idea how AS uses threads
+
+117- 149 - Testing recorder, change text view to inner storage, or simply a box saying audio test worked
 
 
+142-150 - Same deal, setting textbox that displays to user, useful for bugtest
 
 
+158-END - This is what does the testing for the audio recorder: It reports it into the text box established in the beginning, which looks like it only is used for. Test is important for app functionallity, but changes to the text box it references will have to be made
 
 
+_________________________________________________________________________________________________
+              My Preferences
+This whole file is about user preferences, audio source, screen size. ect. The places where it deals with sampling rate       and audio source, we care about that but not the UI preferenes
+
+_________________________________________________________________________________________________
+            Range View dialog
+Deals with the plots, Utilizes AnalyzerActivity and AnalyzerGraphic
+
+It does a bit of math in the middle, but it's only done in order to find out the graph range for UI purposes. Given that we won't be displaying the waveform to the user, this isn't needed. 
+
+_________________________________________________________________________________________________
+             Recorder monitor
+Checks to see if the recorder is running. When it is seem to be running, void start() is called to log how long the sample is. 
+
+Lines 52 - 100 - Gets how many samples were taken, then when this function is called, from different files, that number is updated. Why do we need to know the sample's taken? I assume it's because it matters to know where we are in the recording, but that I haven't seen yet in the program. 
+
+_________________________________________________________________________________________________
+            sampling loop
+Utilizes:
+  - SineGenorator
+  - AnalyzerParameters
+  - Analyzer Acitivity
+From the file, "Read a snapshot of audio data at a regular interval, and compute the FFT" This file takes the FFt of a given sample and then....
 
 
+Start - line 68 - Declaring variables and including other classes defined within the program. Sets up the loop window with WORDDURATION_BEFORE and WORDDURATION_AFTER
 
+69 - 86: Sampling loop 
+ - Has  a pause button, then sets up the signal sources for testing, uses sine generator to show 
 
+Lines 89 - 115 - These are all about framerate and not interupting the sample loop when phones sleeps(?)
 
+Lines 120 - 146 - Gets sample data from test data made in lines 75ish. It then adds the sample data collected to mdata (where the temp data is stored)  then limits rate at which generated sine shows
 
-
-
-
+Lines 150 - 418 public void run() - This is what happens when you run the SamplingLoop run function. To start:
+ - Start time is established using the system clock, as well as end time, this is used to get 500ms intervals of sample data
+ - Gets sample size and error checks the minimum size of any of the samples. 
+ 
+ - Next a chunk size is determined, 
 
