@@ -10,19 +10,18 @@ ColorMapArray
 FPSCounter
 GridLabel
 RangeViewDialogC
+ScreenPhysicalMapping
+SelectorText
 
 
 
 ACtivities that might matter:
 SpectrogramPlot
-SineGenerator
-ScreenPhysicalMapping
-SbNumFormat
-SelectorText
 SpectrogramBMP
 SpectrumPlot
-SamplingLoop
 STFT
+
+SbNumFormat
 
 
 
@@ -38,6 +37,8 @@ CalibrationLoad
 InfoRecActivity
 MyPreferences
 RecorderMOnitor
+SamplingLoop
+SineGenerator
 
 
 
@@ -281,6 +282,36 @@ Lines 120 - 146 - Gets sample data from test data made in lines 75ish. It then a
 Lines 150 - 418 public void run() - This is what happens when you run the SamplingLoop run function. To start:
  - Start time is established using the system clock, as well as end time, this is used to get 500ms intervals of sample data
  - Gets sample size and error checks the minimum size of any of the samples. 
- 
- - Next a chunk size is determined, 
 
+216 - 224
+ - Next a chunk size is determined, as well as various other analysis metrics which are saved in string format within analyzerParam.
+ 
+ - Then we make a recorder obj, set some stft parameters
+ 
+ Lines 336 - end:
+  - This is where the information form the transforms is gathered and set. This is where we will (probably?) go to in order 
+  to access that info to see whether our signals match eachother
+
+
+________________________________________________________________________________________________
+            SBNumFormat:
+Honestly, I have no idea what this does. Someone else help? I'd just include it to not worry about it.
+
+
+
+________________________________________________________________________________________________
+            ScreenPhysicalMapping
+This is self exlanatory: when you display various elements on screen, you have to ensure everything is where you want it. That is the purpose of this code, and is not important to us. Mapping the screen will probably be a part of our end functionality, but not using this code. 
+
+
+
+________________________________________________________________________________________________
+             SelectorText
+Aestetics for menu text - not important for us
+
+
+________________________________________________________________________________________________
+            SineGenerator
+This is very important. Not only does it generate the sine wave for displaying, it also calculates some important aspects.
+
+            
