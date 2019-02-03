@@ -16,12 +16,12 @@ SelectorText
 
 
 ACtivities that might matter:
-SpectrogramPlot
 SpectrumPlot
 STFT
 
 SbNumFormat
 SpectrogramBMP
+SpectrogramPlot
 
 
 
@@ -318,4 +318,10 @@ This is very important. Not only does it generate the sine wave for displaying, 
 ________________________________________________________________________________________________
             SpectrogramBMP
 This makes the picture to draw on the graph, or "canvas" as it's called in the code. There are parts here that are calculate data for the wave, and we can pull from that to get info for our comparisons
+
+________________________________________________________________________________________________
+            SpectrogramPlot
+Lost this - Basically it's mostly getting data from the plot go prep actual display of data. There are a few places thtat get data which could be useful for us, but we have to change the way in which it is seen. 
+
+Around line 352 is the important function for us
             
