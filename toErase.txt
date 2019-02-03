@@ -17,11 +17,11 @@ SelectorText
 
 ACtivities that might matter:
 SpectrogramPlot
-SpectrogramBMP
 SpectrumPlot
 STFT
 
 SbNumFormat
+SpectrogramBMP
 
 
 
@@ -314,4 +314,8 @@ ________________________________________________________________________________
             SineGenerator
 This is very important. Not only does it generate the sine wave for displaying, it also calculates some important aspects.
 
+
+________________________________________________________________________________________________
+            SpectrogramBMP
+This makes the picture to draw on the graph, or "canvas" as it's called in the code. There are parts here that are calculate data for the wave, and we can pull from that to get info for our comparisons
             
